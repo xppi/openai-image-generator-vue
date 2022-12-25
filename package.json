@@ -1,6 +1,6 @@
 {
   "name": "openai-image-generator-vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -13,6 +13,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "openai": "3.1.0",
     "vue": "3.2.45",
     "vue-router": "4.1.6"
   },
