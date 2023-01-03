@@ -5,6 +5,8 @@ import Formats from '../lib/formats'
 import ImageDisplay from '@/components/ImageDisplay.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
+const MAX_PROMPT_LENGTH = 1000
+
 const configuration = new Configuration({
     apiKey: import.meta.env.VITE_OPENAI_API_KEY,
 })
@@ -17,6 +19,9 @@ const state = reactive({
   prompt: '',
   imageUrl: '',
   isLoading: false,
+  rules: {
+    prompt: [(v: string | any[]) => v.length <= MAX_PROMPT_LENGTH || `Max ${MAX_PROMPT_LENGTH} characters`]
+  }
 })
 
 const size = computed(() => {
@@ -52,33 +57,38 @@ const loadImage = async () => {
 
 <template>
   <main>
-   <section>
-    <div>
-      <label for="textPrompt">Input your Text:</label>
-      <textarea id="textPrompt" v-model="state.prompt"></textarea>
-    </div>
+    <section class="promt">
+      <VTextarea
+        clearable 
+        label='Please type your image description'
+        :rules="state.rules.prompt"
+        v-model="state.prompt"
+      >
+      </VTextarea>
+    </section>
+    
+    <section>
+      <div>
+        <label for="sizeSelection">Choose a size:</label>
+        <select id="sizeSelection" v-model="state.selectedOption">
+          <option 
+            v-for="format in state.formats"
+            :key="format"
+            :value="format"
+          >
+            {{ format }}
+          </option>
+        </select>
+      </div>
 
-    <div>
-      <label for="sizeSelection">Choose a size:</label>
-      <select id="sizeSelection" v-model="state.selectedOption">
-        <option 
-          v-for="format in state.formats"
-          :key="format"
-          :value="format"
-        >
-          {{ format }}
-        </option>
-      </select>
-    </div>
+      <div>
+        <button @click="loadImage">Load Image</button>
+      </div>
+    </section>
 
-    <div>
-      <button @click="loadImage">Load Image</button>
-    </div>
-   </section>
-
-   <section class="image-display" :style="{ width: `${size}px`}">
-    <LoadingSpinner v-if="state.isLoading" />
-    <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
-   </section>
+    <section class="image-display" :style="{ width: `${size}px`}">
+      <LoadingSpinner v-if="state.isLoading" />
+      <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
+    </section>
   </main>
 </template>
