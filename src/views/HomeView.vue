@@ -14,7 +14,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const state = reactive({
-  formats: Formats,
+  formats: Object.values(Formats),
   selectedOption: Formats.SMALL,
   prompt: '',
   imageUrl: '',
@@ -63,28 +63,20 @@ const loadImage = async () => {
         label='Please type your image description'
         :rules="state.rules.prompt"
         v-model="state.prompt"
-      >
-      </VTextarea>
+      />
     </section>
     
-    <section>
-      <div>
-        <label for="sizeSelection">Choose a size:</label>
-        <select id="sizeSelection" v-model="state.selectedOption">
-          <option 
-            v-for="format in state.formats"
-            :key="format"
-            :value="format"
-          >
-            {{ format }}
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <button @click="loadImage">Load Image</button>
-      </div>
+    <section class="format">
+      <VSelect
+        label="Choose a size"
+        :items="state.formats"
+        v-model="state.selectedOption"
+      />
     </section>
+
+    <div>
+      <button @click="loadImage">Load Image</button>
+    </div>
 
     <section class="image-display" :style="{ width: `${size}px`}">
       <LoadingSpinner v-if="state.isLoading" />
