@@ -74,9 +74,13 @@ const loadImage = async () => {
       />
     </section>
 
-    <div>
-      <button @click="loadImage">Load Image</button>
-    </div>
+    <VBtn 
+      variant="flat" 
+      :disabled="state.isLoading || state.prompt.length < 1"
+      @click="loadImage"
+    >
+      Load Image
+    </VBtn>
 
     <section class="image-display" :style="{ width: `${size}px`}">
       <LoadingSpinner v-if="state.isLoading" />
