@@ -5,6 +5,8 @@ import Formats from '../lib/formats'
 import ImageDisplay from '@/components/ImageDisplay.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
+const MAX_PROMPT_LENGTH = 1000
+
 const configuration = new Configuration({
     apiKey: import.meta.env.VITE_OPENAI_API_KEY,
 })
@@ -12,16 +14,14 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 const state = reactive({
-  formats: Formats,
+  formats: Object.values(Formats),
   selectedOption: Formats.SMALL,
   prompt: '',
   imageUrl: '',
   isLoading: false,
-})
-
-const size = computed(() => {
-  const sp = state.selectedOption.split('x')
-  return sp[0]
+  rules: {
+    prompt: [(v: string | any[]) => v.length <= MAX_PROMPT_LENGTH || `Max ${MAX_PROMPT_LENGTH} characters`]
+  }
 })
 
 const hasImage = computed(() => {
@@ -31,6 +31,7 @@ const hasImage = computed(() => {
 const loadImage = async () => {
   try {
     state.isLoading = true
+    state.imageUrl = ''
     const response = await openai.createImage({
       prompt: state.prompt,
       n: 1,
@@ -52,33 +53,45 @@ const loadImage = async () => {
 
 <template>
   <main>
-   <section>
-    <div>
-      <label for="textPrompt">Input your Text:</label>
-      <textarea id="textPrompt" v-model="state.prompt"></textarea>
-    </div>
+    <section class="promt">
+      <VTextarea
+        clearable 
+        label='Please type your image description'
+        :rules="state.rules.prompt"
+        v-model="state.prompt"
+      />
+    </section>
+    
+    <section class="format">
+      <VSelect
+        label="Choose a size"
+        :items="state.formats"
+        v-model="state.selectedOption"
+      />
+    </section>
 
-    <div>
-      <label for="sizeSelection">Choose a size:</label>
-      <select id="sizeSelection" v-model="state.selectedOption">
-        <option 
-          v-for="format in state.formats"
-          :key="format"
-          :value="format"
-        >
-          {{ format }}
-        </option>
-      </select>
-    </div>
+    <VBtn 
+      variant="flat" 
+      :disabled="state.isLoading || state.prompt.length < 1"
+      @click="loadImage"
+    >
+      Generate Image
+    </VBtn>
 
-    <div>
-      <button @click="loadImage">Load Image</button>
-    </div>
-   </section>
-
-   <section class="image-display" :style="{ width: `${size}px`}">
-    <LoadingSpinner v-if="state.isLoading" />
-    <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
-   </section>
+    <section class="image-display">
+      <LoadingSpinner v-if="state.isLoading" />
+      <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
+    </section>
   </main>
 </template>
+
+<style scoped>
+.image-display {
+  display: flex;
+  margin-top: 10vh;
+}
+
+.image-display > .spinner-wrapper {
+  margin: 0 auto;
+}
+</style>
