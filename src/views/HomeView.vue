@@ -24,11 +24,6 @@ const state = reactive({
   }
 })
 
-const size = computed(() => {
-  const sp = state.selectedOption.split('x')
-  return sp[0]
-})
-
 const hasImage = computed(() => {
   return state.imageUrl.length > 0
 })
@@ -36,6 +31,7 @@ const hasImage = computed(() => {
 const loadImage = async () => {
   try {
     state.isLoading = true
+    state.imageUrl = ''
     const response = await openai.createImage({
       prompt: state.prompt,
       n: 1,
@@ -79,12 +75,23 @@ const loadImage = async () => {
       :disabled="state.isLoading || state.prompt.length < 1"
       @click="loadImage"
     >
-      Load Image
+      Generate Image
     </VBtn>
 
-    <section class="image-display" :style="{ width: `${size}px`}">
+    <section class="image-display">
       <LoadingSpinner v-if="state.isLoading" />
       <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
     </section>
   </main>
 </template>
+
+<style scoped>
+.image-display {
+  display: flex;
+  margin-top: 10vh;
+}
+
+.image-display > .spinner-wrapper {
+  margin: 0 auto;
+}
+</style>

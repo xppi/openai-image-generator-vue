@@ -1,9 +1,24 @@
 <template>
-  <span class="spinner"></span>
+  <div class="spinner-wrapper">
+    <div class="spinner-text">generating image...</div>
+    <div class="spinner"></div>
+  </div>
 </template>
 
 <style scoped>
+.spinner-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner-text {
+  margin-top: 24px;
+}
+
 .spinner {
+  margin-top: -32px;
   transform: rotateZ(45deg);
   perspective: 1000px;
   border-radius: 50%;
@@ -75,5 +90,4 @@
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
-   
 </style>

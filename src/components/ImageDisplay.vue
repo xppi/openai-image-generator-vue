@@ -8,5 +8,9 @@
   <img :src="props.imageUrl" alt="Generated Image" />
 </template>
 
-<style>
+<style scoped>
+  img {
+    max-width: 100%;
+    margin: 0 auto;
+  }
 </style>
