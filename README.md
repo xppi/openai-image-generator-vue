@@ -2,6 +2,8 @@
 
 A small [VueJs](https://vuejs.org/) app to generate [OpenAi Dall.E2](https://openai.com/dall-e-2/) images.
 
+![Example Image](/screenshot/pink-owl.png?raw=true "Example Image")
+
 ## Setup
  - Download/clone the project
 
