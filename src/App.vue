@@ -22,12 +22,13 @@ import PageHeader from './components/PageHeader.vue';
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
+    margin-bottom: 24px;
   }
 
   nav a {
     display: flex;
     padding: 12px 4px;
     font-size: 24px;
-    text-decoration: none;
+    margin-right: 12px
   }
 </style>
