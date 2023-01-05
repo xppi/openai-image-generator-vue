@@ -18,4 +18,16 @@ import PageHeader from './components/PageHeader.vue';
 </template>
 
 <style scoped>
+  nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  nav a {
+    display: flex;
+    padding: 12px 4px;
+    font-size: 16px;
+    text-decoration: none;
+  }
 </style>
