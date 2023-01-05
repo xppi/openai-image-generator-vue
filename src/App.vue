@@ -6,7 +6,7 @@ import PageHeader from './components/PageHeader.vue';
 <template>
   <header>
     <div class="wrapper">
-      <PageHeader header-text="OpenAi Dall-E Image Generator" />
+      <PageHeader header-text="OpenAi DALL·E Image Generator" />
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -27,7 +27,7 @@ import PageHeader from './components/PageHeader.vue';
   nav a {
     display: flex;
     padding: 12px 4px;
-    font-size: 16px;
+    font-size: 24px;
     text-decoration: none;
   }
 </style>
