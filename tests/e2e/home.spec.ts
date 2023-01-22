@@ -28,3 +28,16 @@ test('navigate to about page', async ({ page }) => {
   await expect(page).toHaveURL(/about/)
   await expect(page.getByRole('heading', { level: 4 })).toHaveText('DALL·E 2')
 })
+
+test('image generation workflow', async ({ page }) => {
+  // Mock openAi Api request
+  await Config.apiRoute(page)
+
+  await page.getByLabel('Please type your image description').click();
+  await page.getByLabel('Please type your image description').fill('A purple owl');
+  await page.locator('.format > .v-input > .v-input__control > .v-field > .v-field__field > .v-field__input').click();
+  await page.getByText('512x512').click();
+  await page.getByRole('button', { name: 'Generate Image' }).click();
+
+  await expect(page.getByAltText('Generated Image')).toBeVisible()
+})
