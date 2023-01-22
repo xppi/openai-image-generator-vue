@@ -21,3 +21,10 @@ test('test initial render of page elements', async ({ page }) => {
   await expect(generateButton).toBeVisible()
   await expect(generateButton).toBeDisabled()
 })
+
+test('navigate to about page', async ({ page }) => {
+  const aboutLink = page.getByRole('link', { name: 'About' })
+  await aboutLink.click()
+  await expect(page).toHaveURL(/about/)
+  await expect(page.getByRole('heading', { level: 4 })).toHaveText('DALL·E 2')
+})
