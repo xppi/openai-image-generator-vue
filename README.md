@@ -60,3 +60,21 @@ npm run test:e2e -- --debug
 ```sh
 npm run lint
 ```
+
+
+## Run via Docker
+
+### Setup
+ - Download/clone the project
+
+ - Get an [OpenAi API Key](https://beta.openai.com/docs/api-reference/authentication)
+
+ - Rename `.env.example` file to `.env` and use the API key there
+### Build image
+```sh
+docker build -d <image-name> .
+```
+### Run
+```sh
+docker run -it -p 8080:80 --rm --name <container-name> <image-name>
+```
