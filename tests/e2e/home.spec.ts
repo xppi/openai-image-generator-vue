@@ -9,7 +9,7 @@ test('test initial render of page elements', async ({ page }) => {
   const mainHeading = page.getByRole('heading', { level: 1 })
   const homeLink = page.getByRole('link', { name: 'Home' })
   const aboutLink = page.getByRole('link', { name: 'About' })
-  const prompt = page.getByLabel('Please type your image description')
+  const prompt = page.getByLabel('Please type your image description', { exact: true })
   const sizeSelection = page.getByLabel('Choose a size')
   const generateButton = page.getByRole('button', { name: 'Generate Image'})
 
@@ -33,8 +33,8 @@ test('image generation workflow', async ({ page }) => {
   // Mock openAi Api request
   await Config.apiRoute(page)
 
-  await page.getByLabel('Please type your image description').click();
-  await page.getByLabel('Please type your image description').fill('A purple owl');
+  await page.getByLabel('Please type your image description', { exact: true }).click();
+  await page.getByLabel('Please type your image description', { exact: true }).fill('A purple owl');
   await page.locator('.format > .v-input > .v-input__control > .v-field > .v-field__field > .v-field__input').click();
   await page.getByText('512x512').click();
   await page.getByRole('button', { name: 'Generate Image' }).click();
