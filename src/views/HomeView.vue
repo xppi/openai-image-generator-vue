@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import { Configuration, OpenAIApi } from 'openai'
 import { reactive, computed } from 'vue'
+import { openaiApi } from '@/lib/openaiApi';
 import Formats from '../lib/formats'
 import ImageDisplay from '@/components/ImageDisplay.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const MAX_PROMPT_LENGTH = 1000
-
-const configuration = new Configuration({
-    apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-})
-
-const openai = new OpenAIApi(configuration);
 
 const state = reactive({
   formats: Object.values(Formats),
@@ -32,7 +26,7 @@ const loadImage = async () => {
   try {
     state.isLoading = true
     state.imageUrl = ''
-    const response = await openai.createImage({
+    const response = await openaiApi.createImage({
       prompt: state.prompt,
       n: 1,
       size: state.selectedOption,
