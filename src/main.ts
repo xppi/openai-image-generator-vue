@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import { createI18n } from 'vue-i18n'
 import router from './router'
+import App from './App.vue'
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -9,6 +10,11 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 
 import './assets/main.css'
+
+const i18n = createI18n({
+  locale: 'en',
+  fallbackLocale: 'en'
+})
 
 const nordTheme = {
   dark: true,
@@ -45,6 +51,7 @@ const vuetify = createVuetify({
   }
 })
 
+app.use(i18n)
 app.use(router)
 app.use(vuetify)
 
