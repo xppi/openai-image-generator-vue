@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import PageHeader from './components/PageHeader.vue';
+import LanguageSwitcher from './components/LanguageSwitcher.vue';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <PageHeader header-text="OpenAi DALL·E Image Generator" />
+      <PageHeader :header-text="$t('page_header.text')" />
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">
+          {{ $t('navigation.home') }}
+        </RouterLink>
+        <RouterLink to="/about">
+          {{ $t('navigation.about') }}
+        </RouterLink>
+        <LanguageSwitcher />
       </nav>
     </div>
   </header>
@@ -21,7 +27,6 @@ import PageHeader from './components/PageHeader.vue';
   nav {
     display: flex;
     justify-content: flex-start;
-    align-items: stretch;
     margin-bottom: 24px;
   }
 
