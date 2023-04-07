@@ -20,7 +20,7 @@
     "vuetify": "3.1.7"
   },
   "devDependencies": {
-    "@mdi/font": "7.1.96",
+    "@mdi/font": "7.2.96",
     "@playwright/test": "1.31.2",
     "@rushstack/eslint-patch": "1.2.0",
     "@types/node": "18.14.6",
