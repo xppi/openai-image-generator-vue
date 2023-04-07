@@ -9,11 +9,23 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 
+// import target languages
+import en from './i18n/en'
+import de from './i18n/de'
+
 import './assets/main.css'
 
-const i18n = createI18n({
+// Type-define 'en' as the master schema for the locales
+type MessageSchema = typeof en
+
+const i18n = createI18n<[MessageSchema], 'en' | 'de'>({
+  legacy: false,
   locale: 'en',
-  fallbackLocale: 'en'
+  fallbackLocale: 'en',
+  messages: {
+    en,
+    de
+  }
 })
 
 const nordTheme = {

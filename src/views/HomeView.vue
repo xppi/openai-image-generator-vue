@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { openaiApi } from '@/lib/openaiApi';
 import Formats from '../lib/formats'
 import ImageDisplay from '@/components/ImageDisplay.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
-const MAX_PROMPT_LENGTH = 1000
+const { t } = useI18n()
+const MAX_PROMPT_LENGTH = 10
 
 const state = reactive({
   formats: Object.values(Formats),
@@ -14,7 +16,7 @@ const state = reactive({
   imageUrl: '',
   isLoading: false,
   rules: {
-    prompt: [(v: string | any[]) => v.length <= MAX_PROMPT_LENGTH || `Max ${MAX_PROMPT_LENGTH} characters`]
+    prompt: [(v: string | any[]) => v.length <= MAX_PROMPT_LENGTH || t('home_view.max_chars', { max: MAX_PROMPT_LENGTH })]
   }
 })
 
@@ -39,7 +41,7 @@ const loadImage = async () => {
     }
     
   } catch (error) {
-    console.log('Something went horribly wrong:', error)
+    console.log(t('errors.image_loading_failed'), error)
   }
 
 }
@@ -50,7 +52,7 @@ const loadImage = async () => {
     <section class="promt">
       <VTextarea
         clearable 
-        label='Please type your image description'
+        :label="$t('home_view.prompt')"
         :rules="state.rules.prompt"
         v-model="state.prompt"
       />
@@ -58,7 +60,7 @@ const loadImage = async () => {
     
     <section class="format">
       <VSelect
-        label="Choose a size"
+        :label="$t('home_view.choose_size')"
         :items="state.formats"
         v-model="state.selectedOption"
       />
@@ -69,7 +71,7 @@ const loadImage = async () => {
       :disabled="state.isLoading || state.prompt.length < 1"
       @click="loadImage"
     >
-      Generate Image
+      {{ t('home_view.generate_image') }}
     </VBtn>
 
     <section class="image-display">
