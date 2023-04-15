@@ -7,7 +7,7 @@ import ImageDisplay from '@/components/ImageDisplay.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 const { t } = useI18n()
-const MAX_PROMPT_LENGTH = 10
+const MAX_PROMPT_LENGTH = 1000
 
 const state = reactive({
   formats: Object.values(Formats),
