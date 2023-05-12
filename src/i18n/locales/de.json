@@ -16,6 +16,21 @@
     "generate_image": "Bild generieren"
   },
   "errors": {
-    "image_loading_failed": "Etwas ist schrecklich schief gelaufen"
+    "image_loading_failed": "Etwas ist furchtbar schief gelaufen",
+    "undefined": {
+      "code": "undefined",
+      "title": "Undefinierter Fehler",
+      "message": "Etwas ist furchtbar schief gelaufen"
+    },
+    "400": {
+      "code": "billing_hard_limit_reached",
+      "title": "Fehlerhafte Anfrage",
+      "message": "Die harte Abrechnungsgrenze wurde erreicht."
+    },
+    "401": {
+      "code": "invalid_api_key",
+      "title": "Unberechtigter Zugriff",
+      "message": "Sie sind nicht berechtigt, ein Bild anzufordern: Falscher API-Schlüssel angegeben."
+    }
   }
 }

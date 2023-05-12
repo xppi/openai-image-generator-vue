@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { reactive, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { openaiApi } from '@/lib/openaiApi';
+import { openaiApi } from '@/lib/openaiApi'
 import Formats from '../lib/formats'
-import ImageDisplay from '@/components/ImageDisplay.vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import ImageDisplay from '@/components/ImageDisplay.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
+import ErrorDisplay from '@/components/ErrorDisplay.vue'
 
 const { t } = useI18n()
 const MAX_PROMPT_LENGTH = 1000
@@ -15,6 +16,8 @@ const state = reactive({
   prompt: '',
   imageUrl: '',
   isLoading: false,
+  hasError: false,
+  error: {},
   rules: {
     prompt: [(v: string | any[]) => v.length <= MAX_PROMPT_LENGTH || t('home_view.max_chars', { max: MAX_PROMPT_LENGTH })]
   }
@@ -40,8 +43,10 @@ const loadImage = async () => {
       state.imageUrl = response.data.data[0].url || ''
     }
     
-  } catch (error) {
-    console.log(t('errors.image_loading_failed'), error)
+  } catch (error: any) {
+    state.isLoading = false
+    state.hasError = true
+    state.error = error.response
   }
 
 }
@@ -77,6 +82,10 @@ const loadImage = async () => {
     <section class="image-display">
       <LoadingSpinner v-if="state.isLoading" />
       <ImageDisplay v-if="hasImage" :imageUrl="state.imageUrl" />
+      <ErrorDisplay
+        v-if="state.hasError"
+        :error="state.error"
+      />
     </section>
   </main>
 </template>
