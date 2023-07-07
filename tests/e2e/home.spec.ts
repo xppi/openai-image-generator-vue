@@ -10,7 +10,7 @@ test('test initial render of page elements', async ({ page }) => {
   const homeLink = page.getByRole('link', { name: 'Home' })
   const aboutLink = page.getByRole('link', { name: 'About' })
   const prompt = page.getByLabel('Please type your image description', { exact: true })
-  const sizeSelection = page.getByLabel('Choose a size')
+  const sizeSelection = page.getByLabel('Choose image size')
   const generateButton = page.getByRole('button', { name: 'Generate Image'})
 
   await expect(mainHeading).toHaveText('OpenAi DALL·E Image Generator')
