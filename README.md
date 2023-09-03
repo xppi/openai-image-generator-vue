@@ -5,17 +5,19 @@ A small [VueJs](https://vuejs.org/) app to generate [OpenAi Dall.E2](https://ope
 ![Example Image](/screenshot/yellow-duck.png?raw=true "Example Image")
 
 ## Setup
- - Download/clone the project
 
- - Get an [OpenAi API Key](https://beta.openai.com/docs/api-reference/authentication)
+- Download/clone the project
 
- - Rename `.env.example` file to `.env` and use the API key there
+- Get an [OpenAi API Key](https://beta.openai.com/docs/api-reference/authentication)
 
- - Install dependencies:
+- Rename `.env.example` file to `.env` and use the API key there
+
+- Install dependencies:
 
 ```sh
 npm install
 ```
+
 ## Run
 
 ### Compile and Hot-Reload for Development
@@ -61,20 +63,30 @@ npm run test:e2e -- --debug
 npm run lint
 ```
 
-
 ## Run via Docker
 
 ### Setup
- - Download/clone the project
 
- - Get an [OpenAi API Key](https://beta.openai.com/docs/api-reference/authentication)
+- Download/clone the project
 
- - Rename `.env.example` file to `.env` and use the API key there
+- Get an [OpenAi API Key](https://beta.openai.com/docs/api-reference/authentication)
+
+- Rename `.env.example` file to `.env` and use the API key there
+
 ### Build image
+
 ```sh
 docker build -d <image-name> .
 ```
+
 ### Run
+
 ```sh
 docker run -it -p 8080:80 --rm --name <container-name> <image-name>
 ```
+
+## Notes (some final)
+
+- Uses [openai-node](https://github.com/openai/openai-node) Api version < 4.0.0.
+
+- Proof-of-concept is done and I will not update this project any more. v0.3.3 ist the final one.
