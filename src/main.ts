@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
-import i18n from './i18n'
+
 
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -46,7 +46,6 @@ const vuetify = createVuetify({
   }
 })
 
-app.use(i18n)
 app.use(router)
 app.use(vuetify)
 
