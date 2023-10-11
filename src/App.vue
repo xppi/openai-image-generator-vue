@@ -6,16 +6,16 @@ import LanguageSwitcher from './components/LanguageSwitcher.vue';
 
 <template>
   <header>
-    <div class="wrapper">
-      <PageHeader :header-text="$t('page_header.text')" />
-      <nav>
+    <div class="wrapper ">
+      <PageHeader class="rounded-lg text-center bg-grey" :header-text="$t('page_header.text')" />
+      <nav class="flex justify-center mt-10">
         <RouterLink to="/">
           {{ $t('navigation.home') }}
         </RouterLink>
         <RouterLink to="/about">
           {{ $t('navigation.about') }}
         </RouterLink>
-        <LanguageSwitcher />
+        <LanguageSwitcher class="ml-auto rounded-xl" />
       </nav>
     </div>
   </header>
